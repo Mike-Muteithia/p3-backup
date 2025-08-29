@@ -14,7 +14,7 @@ def main_menu():
         print("3. Manage Enrollments")
         print("4. Exit")
 
-        choice = input("Choose an option: ").strip()
+        choice = input("Choose an option: \n").strip()
 
         if choice == "1":
             student_menu()
@@ -40,7 +40,7 @@ def student_menu():
         print("5. Delete Student")
         print("6. Back to Main Menu")
 
-        choice = input("Choose an option: ").strip()
+        choice = input("Choose an option: \n").strip()
 
         if choice == "1":
             name = input("Enter name: ")
@@ -107,7 +107,7 @@ def course_menu():
         print("6. View Enrolled Students")
         print("7. Back to Main Menu")
 
-        choice = input("Choose an option: ").strip()
+        choice = input("Choose an option: \n").strip()
 
         if choice == "1":
             title = input("Enter course title: ")
@@ -197,7 +197,7 @@ def enrollment_menu():
         print("4. Delete Enrollment")
         print("5. Back to Main Menu")
 
-        choice = input("Choose an option: ").strip()
+        choice = input("Choose an option: \n").strip()
 
         if choice == "1":
             # Show students
