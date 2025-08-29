@@ -89,3 +89,4 @@ class Enrollment:
         if enrollment.id >= cls._id_counter:
             cls._id_counter = enrollment.id + 1
         return enrollment
+
