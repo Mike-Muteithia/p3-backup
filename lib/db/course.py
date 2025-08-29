@@ -2,9 +2,11 @@
 class Course: 
 
     _courses = []
+    _id_counter = 1
 
     def __init__(self, title, credits):
-        self.id = len(Course._courses) + 1
+        self.id = Course._id_counter
+        Course._id_counter += 1
         self.title = title
         self.credits = credits
         Course._courses.append(self)
@@ -22,6 +24,10 @@ class Course:
     # CRUD METHODS
     @classmethod
     def create(cls, title, credits):
+        for course in cls._courses:
+            if course.title.lower() == title.lower():
+                print(f"Course with title '{title}' already exists!")
+                return None
         return cls(title, credits)
     
     @classmethod
@@ -55,4 +61,24 @@ class Course:
         return None
 
     def __repr__(self):
-        return f"{self.title} [{self.credits} credits]>"
+        return f"{self.title} [{self.credits} credits]"
+    
+    # Serialization
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "credits": self.credits
+        }
+    
+    # Deserialization
+    @classmethod
+    def from_dict(cls, data):
+        course = cls.__new__(cls)
+        course.id = data["id"]
+        course.title = data["title"]
+        course.credits = data["credits"]
+        cls._courses.append(course)
+        if course.id >= cls._id_counter:
+            cls._id_counter = course.id + 1
+        return course

@@ -2,9 +2,11 @@
 class Student:
 
     _students = []
+    _id_counter = 1
 
     def __init__(self, name, email):
-        self.id = len(Student._students) + 1
+        self.id = Student._id_counter
+        Student._id_counter += 1
         self.name = name
         self.email = email
         Student._students.append(self)
@@ -22,6 +24,10 @@ class Student:
     # CRUD METHODS
     @classmethod
     def create(cls, name, email):
+        for student in cls._students:
+            if student.email.lower() == email.lower():
+                print(f"Student with email {email} already exists!")
+                return None
         return cls(name, email)
     
     @classmethod
@@ -56,3 +62,23 @@ class Student:
 
     def __repr__(self):
         return f"{self.name} ({self.email})"
+    
+    # Serialization
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email
+        }
+    
+    # Deserialization
+    @classmethod
+    def from_dict(cls, data):
+        student = cls.__new__(cls)
+        student.id = data["id"]
+        student.name = data["name"]
+        student.email = data["email"]
+        cls._students.append(student)
+        if student.id >= cls._id_counter:
+            cls._id_counter = student.id + 1
+        return student
