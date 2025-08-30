@@ -1,115 +1,106 @@
 # CourseFlow CLI
 
-A simple Python-based command-line application that manages **students, courses, and enrollments**.  
-It demonstrates core concepts of:
-
-- Command-line interaction  
-- Data persistence with JSON  
-- CRUD operations for multiple entities  
+- CourseFlow is a command-line application for managing students, courses, and enrollments using **Python**, **SQLAlchemy ORM**, and **Alembic** for migrations.
 
 ---
 
-## Features
+## Installation
 
-This application enables the user:
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   cd courseflow
 
-- To **create, view, update, and delete students**  
-- To **create, view, update, and delete courses**  
-- To **enroll students in courses** and manage their enrollments  
-- To **view enrolled students in a course**  
-- To **search for students, courses, or enrollments by ID**  
-- To **automatically persist data** in a `db.json` file  
-
----
-
-## File Structure
-
-courseflow-cli/
-├── lib/
-│ ├── cli.py # CLI workflow & menus
-│ ├── db/
-│ │ ├── student.py # Student model & CRUD
-│ │ ├── course.py # Course model & CRUD
-│ │ └── enrollment.py # Enrollment model & CRUD
-├── main.py # Entry point for the program
-├── db.json # Persistent storage
-└── README.md # Project documentation
-
----
-
-## How It Works
-
-When the user runs the program, they see a **main menu**:
-
---- CourseFlow CLI ---
-
-1. Manage Students
-
-2. Manage Courses
-
-3. Manage Enrollments
-
-4. Exit
-
-From there, users can navigate sub-menus:
-
-- **Student Menu**
-  - Create student
-  - View all students
-  - Find student by ID
-  - Update student
-  - Delete student  
-
-- **Course Menu**
-  - Create course
-  - View all courses
-  - Find course by ID
-  - Update course
-  - Delete course
-  - View enrolled students  
-
-- **Enrollment Menu**
-  - Create enrollment
-  - View all enrollments
-  - Find enrollment by ID
-  - Delete enrollment  
-
-All data is saved into `db.json` and reloaded on startup.  
-
----
-
-## ▶️ How To Run
-
-Clone the repository:
-
+2. Install dependencies with Pipenv:
 ```bash
-1. git clone https://github.com/your-username/courseflow-cli.git
-cd courseflow-cli
-2. Run the program:
+   pipenv install
 
-2. python -m lib.cli
+3. Activate the virtual eniviroment:
+```bash
+   pipenv shell
 
- Validation Rules
-- Students must have a unique ID, valid name, and email
+4. Create the database tables:
+```bash
+   alembic upgrade head
 
-- Courses must have a title and credit value
+5. Run the CLI with:
+```bash
+   python main.py
 
-- Enrollments must link a valid student and course
+- You’ll see the main menu with options to manage Students, Courses, and Enrollments.
 
-- Duplicate enrollments (same student + same course) are not allowed
 
- Future Improvements
-- Prevent duplicate student emails and duplicate course titles
+## 📚 Menu Options
 
-- Add confirmation prompts before deleting data
+### 🧑‍🎓 Students Menu
+- **List all students** – View all students currently in the database.  
+- **Add a student** – Create a new student record.  
+- **Update student information** – Modify a student’s details (e.g., name, email).  
+- **Delete a student** – Remove a student from the system.  
+- **Back to main menu** – Return to the main menu.  
 
-- Export reports (CSV / JSON)
+---
 
-- Switch storage from JSON → SQLite for scalability
+### 📘 Courses Menu
+- **List all courses** – View all available courses.  
+- **Add a course** – Create a new course.  
+- **Update course information** – Modify a course’s details (e.g., title, description).  
+- **Delete a course** – Remove a course from the system.  
+- **Back to main menu** – Return to the main menu.  
 
-- Add unit tests
+---
 
-- Build a GUI or web-based frontend
+### 📝 Enrollments Menu
+- **List all enrollments** – View all student-course enrollments.  
+- **Enroll student in course** – Assign a student to a course.  
+  - When prompted, student and course options are shown for easier selection.  
+- **Remove enrollment** – Unenroll a student from a course.  
+- **Back to main menu** – Return to the main menu.  
 
-License
-- This project is licensed under the MIT License.
+## 🛠️ Technologies Used
+
+- **Python 3.8+**  
+- **SQLAlchemy** – ORM for database interactions  
+- **Alembic** – Database migrations  
+- **Click** – CLI creation  
+- **Tabulate** – Nicely formatted CLI tables  
+- **python-dotenv** – Manage environment variables  
+
+## Project Structure
+courseflow/
+│── cli/
+│   └── interface.py        # CLI menus and interface
+│
+│── db/
+│   └── setup.py            # Database setup
+│
+│── models/
+│   ├── student.py          # Student ORM model
+│   ├── course.py           # Course ORM model
+│   └── enrollment.py       # Enrollment ORM model
+│
+│── migrations/             # Alembic migration files
+│   ├── versions/           # Versioned migration scripts
+│   ├── env.py
+│   ├── README
+│   └── script.py.mako
+│
+│── .venv/                  # Virtual environment
+│── .env                    # Environment variables
+│── alembic.ini             # Alembic configuration
+│── courseflow.db           # SQLite database
+│── inspect_db.py           # Utility to inspect DB tables
+│── main.py                 # Entry point for CLI
+│── Pipfile                 # Dependencies
+│── Pipfile.lock            # Dependency lock file
+│── README.md               # Documentation
+
+## ✨ Features
+
+- Manage students, courses, and enrollments directly from the CLI.  
+- Database persistence using SQLite.  
+- Schema management with Alembic migrations.  
+- Clear, user-friendly CLI menus.  
+
+## License
+© 2025 Mike Muteithia — Moringa School.
